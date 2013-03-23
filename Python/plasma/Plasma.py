@@ -1625,6 +1625,10 @@ Such as a game master, only running on the client that owns a particular object"
 And optionally hold update until later (for applying tinting before wearing)."""
         pass
 
+    def wearRandomClothing(self):
+        """Tells the avatar to wear a random outfit."""
+        pass
+
 class ptBook:
     """Creates a new book"""
     def __init__(self,esHTMLSource,coverImage=None,callbackKey=None,guiName=''):

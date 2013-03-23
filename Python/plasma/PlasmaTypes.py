@@ -232,67 +232,6 @@ def PtFindAvatar(events):
     # didn't find one
     return None
 
-def PtWearRandomOutfit(avatar, seed=None):
-    """Randomizes avatar's outfit. seed is a hashable object, used to initalize the random number generator.
-If seed is None, the system time is used."""
-    import random
-    random.seed(seed)
-
-    Hair = avatar.avatar.getClosetClothingList(kHairClothingItem)
-    Shirt = avatar.avatar.getClosetClothingList(kShirtClothingItem)
-    Pants = avatar.avatar.getClosetClothingList(kPantsClothingItem)
-    Shoes = avatar.avatar.getClosetClothingList(kLeftFootClothingItem)
-    Acc = avatar.avatar.getClosetClothingList(kAccessoryClothingItem)
-
-    for group in Hair,Shirt,Pants,Shoes,Acc:
-        r = []
-        for item in group:
-            for ex in kRandomExcludeClothing:
-                if(item[0].find(ex) >= 0):
-                    r.append(item)
-                    break
-        for item in r:
-            group.pop(group.index(item))
-
-    a = random.randint(0,len(Hair)-1)
-    hItem = Hair[a][0]
-    a = random.randint(0,len(Shirt)-1)
-    sItem = Shirt[a][0]
-    a = random.randint(0,len(Pants)-1)
-    pItem = Pants[a][0]
-    a = random.randint(0,len(Shoes)-1)
-    shItem = Shoes[a][0]
-    match = avatar.avatar.getMatchingClothingItem(shItem)
-    a = random.randint(0,len(Acc)-1)
-    aItem = Acc[a][0]
-
-    avatar.avatar.wearClothingItem(hItem)
-    avatar.avatar.wearClothingItem(sItem)
-    avatar.avatar.wearClothingItem(pItem)
-    avatar.avatar.wearClothingItem(shItem)
-    avatar.avatar.wearClothingItem(match[0])
-    avatar.avatar.wearClothingItem(aItem)
-
-    a = random.randint(0,len(kRandomHairColors)-1)
-    hColor = kRandomHairColors[a]
-    a = random.randint(0,len(kRandomSkinColors)-1)
-    fColor = kRandomSkinColors[a]
-    a = random.randint(0,len(kRandomPantColors)-1)
-    pColor = kRandomPantColors[a]
-    sColor = ptColor(random.randint(0,255)/255.,random.randint(0,255)/255.,random.randint(0,255)/255.)
-
-    avatar.avatar.tintSkin(fColor)
-    avatar.avatar.tintClothingItem(hItem,hColor)
-    avatar.avatar.tintClothingItem(sItem,sColor)
-    avatar.avatar.tintClothingItem(pItem,pColor)
-
-    morph = 2*random.random() - 1
-
-    if (avatar.avatar.getAvatarClothingGroup() == kMaleClothingGroup):
-        avatar.avatar.setMorph("MFace",0,morph)
-    else:
-        avatar.avatar.setMorph("FFace",0,morph)
-
 ####################################
 # Exceptions
 ####################################
